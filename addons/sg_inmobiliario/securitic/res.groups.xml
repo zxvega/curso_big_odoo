@@ -1,0 +1,25 @@
+<odoo>
+    <!--Categoria Padre-->
+    <record id="module_category_inmobiliario" model="ir.module.category">
+        <field name="name">Módulo inmobiliario</field>
+    </record>
+
+    <!--Categoria Hija-->
+    <record id="module_category_inmuebles" model="ir.module.category">
+        <field name="name">Inmuebles</field>
+        <field name="parent_id" ref="sg_inmobiliario.module_category_inmobiliario"/>
+    </record>
+
+    <!--Grupo de Seguridad Usuario-->
+    <record id="group_inmobiliario_user" model="res.groups">
+        <field name="name">Usuario</field>
+        <field name="category_id" ref="sg_inmobiliario.module_category_inmuebles"/>
+    </record>
+
+    <!--Grupo de Seguridad Administrador-->
+    <record id="group_inmobiliario_admin" model="res.groups">
+        <field name="name">Administrador</field>
+        <field name="category_id" ref="sg_inmobiliario.module_category_inmuebles"/>
+        <field name="implied_ids" eval="[(4,ref('sg_inmobiliario.group_inmobiliario_user'))]"/>
+    </record>
+</odoo>

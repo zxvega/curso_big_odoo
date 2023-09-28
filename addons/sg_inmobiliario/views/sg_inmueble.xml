@@ -1,0 +1,77 @@
+<odoo>
+
+    <record id="view_tree_sg_inmueble" model="ir.ui.view">
+        <field name="name">view.tree.sg.inmueble</field>
+        <field name="model">sg.inmueble</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="tag_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_form_sg_inmueble" model="ir.ui.view">
+        <field name="name">view.form.sg.inmueble</field>
+        <field name="model">sg.inmueble</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_avatar">
+                        <field name="image" widget="image"/>
+                    </div>
+                    <h1>
+                        <field name="name" placeholder="Inmueble ej: Departamento 100m2"/>
+                    </h1>
+                    <div>
+                        <field name="tag_ids" widget="many2many_tags" placeholder="Etiquetas"/>
+                    </div>
+                    <div>
+                        <label for="type" string="Tipo de Inmueble"/>
+                        <field name="type"/>
+                    </div>
+                    <group>
+                        <group string="Datos Generales">
+                            <field name="street"/>
+                            <field name="operation" widget="radio" options="{'horizontal':True}"/>
+                            <field name="user_id"/>
+                            <field name="company_id" readonly="1" force_save="1" invisible="1"/>
+                            <field name="owner_id"/>
+                            <field name="codigo_catastral"/>
+                        </group>
+                        <group string="Valor de Propiedad">
+                            <field name="currency_id"/>
+                            <field name="value" widget="monetary"/>
+                        </group>
+                    </group>
+                    <group string="Lista de Interesados">
+                        <field name="partner_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="email"/>
+                                <field name="phone"/>
+                                <field name="mobile" optional="show"/>
+                                <field name="country_id" optional="show"/>
+                                <field name="street"/>
+                                <field name="vat" optional="hide"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_sg_inmueble" model="ir.actions.act_window">
+        <field name="name">Lista de Inmuebles</field>
+        <field name="res_model">sg.inmueble</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <record id="menu_inmuebles" model="ir.ui.menu">
+        <field name="name">Inmuebles</field>
+        <field name="action" ref="sg_inmobiliario.action_view_sg_inmueble"/>
+        <field name="parent_id" ref=""/>
+    </record>
+
+</odoo>

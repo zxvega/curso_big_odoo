@@ -1,0 +1,36 @@
+<odoo>
+
+    <record id="access_sg_inmueble_user" model="ir.model.access">
+        <field name="name">Acceso a inmuebles para usuario</field>
+        <field name="model_id" ref="sg_inmobiliario.model_sg_inmueble"/>
+        <!--
+            <field name="model_id" ref="nombre_modulo.model_nombre_modelo"/>
+            * Reemplaza los puntos '.' por guion bajo '_'
+        -->
+        <field name="group_id" ref="sg_inmobiliario.group_inmobiliario_user"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/> <!--Puede ser True o 1 | False o 0-->
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_write" eval="True"/>
+    </record> 
+
+    <record id="access_sg_tag" model = "ir.model.access">
+        <field name="name">Acceso a etiqueta de inmuebles</field>
+        <field name="model_id" ref="sg_inmobiliario.model_sg_tag"/>
+        <field name="group_id" ref="sg_inmobiliario.group_inmobiliario_user"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_write" eval="True"/>
+    </record>
+
+    <record id="access_sg_tipo_inmuebles" model = "ir.model.access">
+        <field name="name">Acceso a tipos de inmuebles</field>
+        <field name="model_id" ref="sg_inmobiliario.model_sg_tipo_inmueble"/>
+        <field name="group_id" ref="sg_inmobiliario.group_inmobiliario_admin"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_write" eval="True"/>
+    </record>
+</odoo>

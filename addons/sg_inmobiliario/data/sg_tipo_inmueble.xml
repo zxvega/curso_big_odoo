@@ -1,0 +1,14 @@
+<odoo>
+    <record id="tipo_inmueble_departamento" model="sg.tipo.inmueble">
+        <field name="name">Departamento</field>
+    </record>
+
+    <record id="tipo_inmueble_terreno" model="sg.tipo.inmueble">
+        <field name="name">Terreno</field>
+    </record>
+
+    <record id="tipo_inmueble_campo" model="sg.tipo.inmueble">
+        <field name="name">Campo</field>
+    </record>
+
+</odoo>
