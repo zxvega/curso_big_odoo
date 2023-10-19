@@ -1,7 +1,8 @@
 <odoo>
 
+<!--NIVEL 1: PERMISOS DE ACCESOS PARA PERFIL USUARIO BASE-->
     <record id="access_sg_inmueble_user" model="ir.model.access">
-        <field name="name">Acceso a inmuebles para usuario</field>
+        <field name="name">Acceso a inmuebles para usuario - Solo lectura</field>
         <field name="model_id" ref="sg_inmobiliario.model_sg_inmueble"/>
         <!--
             <field name="model_id" ref="nombre_modulo.model_nombre_modelo"/>
@@ -9,9 +10,9 @@
         -->
         <field name="group_id" ref="sg_inmobiliario.group_inmobiliario_user"/>
         <field name="perm_read" eval="True"/>
-        <field name="perm_create" eval="True"/> <!--Puede ser True o 1 | False o 0-->
-        <field name="perm_unlink" eval="True"/>
-        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/> <!--Puede ser True o 1 | False o 0-->
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_write" eval="False"/>
     </record> 
 
     <record id="access_sg_tag" model = "ir.model.access">
@@ -24,6 +25,40 @@
         <field name="perm_write" eval="True"/>
     </record>
 
+    <record id="access_sg_tipo_inmuebles_read" model = "ir.model.access">
+        <field name="name">Acceso a tipos de inmuebles - Lectura</field>
+        <field name="model_id" ref="sg_inmobiliario.model_sg_tipo_inmueble"/>
+        <field name="group_id" ref="sg_inmobiliario.group_inmobiliario_user"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_write" eval="False"/>
+    </record>
+
+<!--NIVEL 2: PERMISOS DE ACCESOS PARA PERFIL USUARIO - GESTIONA SUS PROPIOS INMUEBLES-->
+    <record id="access_sg_inmuebles_propios" model = "ir.model.access">
+        <field name="name">Inmuebles propios</field>
+        <field name="model_id" ref="sg_inmobiliario.model_sg_inmueble"/>
+        <field name="group_id" ref="sg_inmobiliario.group_inmobiliario_user_own_records"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_write" eval="True"/>
+    </record>
+
+<!--NIVEL 3: PERMISOS DE ACCESOS PARA PERFIL SUPERVISOR-->
+    <record id="access_sg_todos_inmuebles_solo_edicion" model = "ir.model.access">
+        <field name="name">Acceso a todos los inmuebles - solo edicion</field>
+        <field name="model_id" ref="sg_inmobiliario.model_sg_inmueble"/>
+        <field name="group_id" ref="sg_inmobiliario.group_inmobiliario_user_supervisor"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_write" eval="True"/>
+    </record>
+
+
+<!--NIVEL 4: PERMISOS DE ACCESOS PARA PERFIL ADMINISTRADOR-->
     <record id="access_sg_tipo_inmuebles" model = "ir.model.access">
         <field name="name">Acceso a tipos de inmuebles</field>
         <field name="model_id" ref="sg_inmobiliario.model_sg_tipo_inmueble"/>

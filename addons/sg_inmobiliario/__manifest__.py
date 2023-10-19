@@ -10,13 +10,17 @@
     # for the full list
     'version': '0.1',
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    "depends":[
+        "base",
+        "mail"
+    ],
     "data":[
         "securitic/res.groups.xml",
         "securitic/ir.model.access.xml",
+        "securitic/ir.rules.xml",
         "demo/inmuebles.xml",
         "data/sg_tipo_inmueble.xml",
         "views/sg_inmueble.xml",
+        "views/res_partner.xml"
     ]
-    
 }

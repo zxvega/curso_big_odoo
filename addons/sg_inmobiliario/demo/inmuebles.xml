@@ -1,14 +1,17 @@
 <odoo>
     <record id="inmueble_test_1" model="sg.inmueble">
         <field name="name">Alquiler de oficina de 60m2</field>
+        <field name="codigo_catastral">0001</field>
     </record>
 
     <record id="inmueble_test_2" model="sg.inmueble">
         <field name="name">Venta de Terreno de 100m2</field>
+        <field name="codigo_catastral">0002</field>
     </record>
 
     <record id="inmueble_test_3" model="sg.inmueble">
         <field name="name">Casa de campo de 500m2 con piscina</field>
+        <field name="codigo_catastral">0003</field>
     </record>
 
 </odoo>

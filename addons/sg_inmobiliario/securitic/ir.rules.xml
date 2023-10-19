@@ -1,0 +1,38 @@
+<odoo>
+    <!--NIVEL 2:  USUARIO - REGLA DE ACCESO PARA INMUEBLES-->
+    <record id="ir_rule_inmuebles_own_record" model="ir.rule">
+        <field name="name">Inmuebles - Usuario visualiza sus propios inmuebles</field>
+        <field name="model_id" ref="sg_inmobiliario.model_sg_inmueble"/><!--Relación Many2one-->
+        <field name="domain_force">[('user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4,ref('sg_inmobiliario.group_inmobiliario_user_own_records'))]"/><!--Relación Many2many-->
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="perm_write" eval="1"/>
+    </record>
+
+
+    <!--NIVEL 3: USUARIO - REGLA DE ACCESO PARA TODOS LOS INMUEBLES SOLO LECTURA-->
+    <record id="ir_rule_inmuebles_all_solo_lectura" model="ir.rule">
+        <field name="name">Inmuebles - Todos los inmuebles - solo lectura</field>
+        <field name="model_id" ref="sg_inmobiliario.model_sg_inmueble"/><!--Relación Many2one-->
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('sg_inmobiliario.group_inmobiliario_user_supervisor'))]"/><!--Relación Many2many-->
+        <field name="perm_read" eval="1"/> 
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="perm_write" eval="1"/>
+    </record>
+
+    <!--NIVEL 4: USUARIO - REGLA DE ACCESO PARA INMUEBLES-->
+    <record id="ir_rule_inmuebles_all" model="ir.rule">
+        <field name="name">Inmuebles - Todos los inmuebles</field>
+        <field name="model_id" ref="sg_inmobiliario.model_sg_inmueble"/><!--Relación Many2one-->
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('sg_inmobiliario.group_inmobiliario_admin'))]"/><!--Relación Many2many-->
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="perm_write" eval="1"/>
+    </record>
+</odoo>

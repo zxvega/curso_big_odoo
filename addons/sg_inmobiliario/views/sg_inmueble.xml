@@ -1,22 +1,59 @@
 <odoo>
-
+    <!--LISTA DE INMUEBLES-->
     <record id="view_tree_sg_inmueble" model="ir.ui.view">
         <field name="name">view.tree.sg.inmueble</field>
         <field name="model">sg.inmueble</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree multi_edit="1" editable="top">
+                <field name="operation"/>
+                <field name="type"/>
+                <field name="codigo_catastral"/>
+                <field name="codigo_catastral_2"/>
                 <field name="name"/>
-                <field name="tag_ids"/>
+                <field name="tag_ids" widget="many2many_tags" optional="show"/>
+                <field name="currency_id" />
+                <field name="value" widget="monetary" />
+                <field name="partner_ids" widget="many2many_tags" optional="hide"/>
+                <field name="date"/>
+                <field name="owner_id" optional="hide"/>
+                <button name="action_view_detail"   type="object"  icon="fa-edit" class="btn-primary"/>
             </tree>
         </field>
     </record>
 
+    <!--BÚSQUEDA DE INMUEBLES-->
+    <record id="view_search_sg_inmueble" model="ir.ui.view">
+        <field name="name">view.search.sg.inmueble</field>
+        <field name="model">sg.inmueble</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Nombre" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="codigo_catastral" string="Código catastral" filter_domain="[('codigo_catastral', 'ilike', self)]"/>
+                <field name="tag_ids" string="Etiquetas" filter_domain="[('tag_ids', 'ilike', self)]"/>
+                <field name="owner_id" string="Dueño" filter_domain="[('owner_id', 'ilike', self)]"/>
+
+                <!--<filter name="operation_alquiler_venta" string="Alquiler o venta" domain="['|',('operation', '=', 'alquiler'),('operation', '=', 'venta')]"/>-->
+                <filter name="operation_alquiler" string="Alquiler" domain="[('operation', '=', 'alquiler')]"/>
+                <filter name="operation_venta" string="Venta" domain="[('operation', '=', 'venta')]"/>
+                <filter name="operation_compra" string="Compra" domain="[('operation', '=', 'compra')]"/>
+
+                <group>
+                    <filter name="group_type" string="Tipo de Inmueble" context="{'group_by': 'type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--FORMULARIO DE INMUEBLE-->
     <record id="view_form_sg_inmueble" model="ir.ui.view">
         <field name="name">view.form.sg.inmueble</field>
         <field name="model">sg.inmueble</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <!--AQUI VAN LOS SMART BUTTONS-->
+                    </div>
                     <div class="oe_avatar">
                         <field name="image" widget="image"/>
                     </div>
@@ -34,10 +71,15 @@
                         <group string="Datos Generales">
                             <field name="street"/>
                             <field name="operation" widget="radio" options="{'horizontal':True}"/>
-                            <field name="user_id"/>
+                            <field name="user_id" 
+                                    readonly="1" 
+                                    groups="sg_inmobiliario.group_inmobiliario_user_own_records,sg_inmobiliario.group_inmobiliario_user,!sg_inmobiliario.group_inmobiliario_admin,!sg_inmobiliario.group_inmobiliario_user_supervisor"
+                                    options="{'no_open':1}"/>
+                            <field name="user_id" groups="sg_inmobiliario.group_inmobiliario_admin,sg_inmobiliario.group_inmobiliario_user_supervisor"/>
                             <field name="company_id" readonly="1" force_save="1" invisible="1"/>
                             <field name="owner_id"/>
                             <field name="codigo_catastral"/>
+                            <field name="codigo_catastral_2"/>
                         </group>
                         <group string="Valor de Propiedad">
                             <field name="currency_id"/>
@@ -58,6 +100,11 @@
                         </field>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
             </form>
         </field>
     </record>
@@ -66,6 +113,7 @@
         <field name="name">Lista de Inmuebles</field>
         <field name="res_model">sg.inmueble</field>
         <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_group_type':1}</field>
     </record>
 
     <record id="menu_inmuebles" model="ir.ui.menu">

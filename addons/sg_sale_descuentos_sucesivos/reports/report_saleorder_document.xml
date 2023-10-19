@@ -1,0 +1,29 @@
+<odoo>
+    <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//th[@name='th_discount']/span" position="replace">
+            <span>Dsct. Final</span>
+        </xpath>
+        <xpath expr="//th[@name='th_discount']" position="before">
+            <th name="th_discount_1" t-if="display_discount" class="text-end">
+                <span>% Dsct.1</span>
+            </th>
+            <th name="th_discount_2" t-if="display_discount" class="text-end">
+                <span>% Dsct.2</span>
+            </th>
+            <th name="th_discount_3" t-if="display_discount" class="text-end">
+                <span>% Dsct.3</span>
+            </th>
+        </xpath>
+        <xpath expr="//td[@t-if='display_discount']" position="before">
+            <td t-if="display_discount" class="text-end">
+                <span t-field="line.descuento_1"/>
+            </td>
+            <td t-if="display_discount" class="text-end">
+                <span t-field="line.descuento_2"/>
+            </td>
+            <td t-if="display_discount" class="text-end">
+                <span t-field="line.descuento_3"/>
+            </td>
+        </xpath>
+    </template>
+</odoo>
